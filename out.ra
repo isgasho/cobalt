@@ -8,7 +8,7 @@ Module {
                     ),
                     span: Span {
                         span: "a",
-                        file: "ui-tests/id.co",
+                        file: "ui-tests/fn-fn.co",
                         line: 0,
                         culumn: 4,
                     },
@@ -17,15 +17,15 @@ Module {
             ],
             item: Definition {
                 id: AstId(
-                    7,
+                    14,
                 ),
                 head_span: Span {
-                    span: "id",
-                    file: "ui-tests/id.co",
+                    span: "foo",
+                    file: "ui-tests/fn-fn.co",
                     line: 0,
                     culumn: 7,
                 },
-                ident: "id",
+                ident: "foo",
                 ty: Func(
                     Path(
                         Path {
@@ -35,9 +35,9 @@ Module {
                             ident: "a",
                             span: Span {
                                 span: "a",
-                                file: "ui-tests/id.co",
+                                file: "ui-tests/fn-fn.co",
                                 line: 0,
-                                culumn: 13,
+                                culumn: 14,
                             },
                         },
                     ),
@@ -49,9 +49,9 @@ Module {
                             ident: "a",
                             span: Span {
                                 span: "a",
-                                file: "ui-tests/id.co",
+                                file: "ui-tests/fn-fn.co",
                                 line: 0,
-                                culumn: 18,
+                                culumn: 19,
                             },
                         },
                     ),
@@ -59,45 +59,102 @@ Module {
                 body: Body {
                     expr: Expr {
                         id: AstId(
-                            6,
+                            13,
                         ),
                         span: Span {
-                            span: "\\",
-                            file: "ui-tests/id.co",
+                            span: "(",
+                            file: "ui-tests/fn-fn.co",
                             line: 0,
-                            culumn: 22,
+                            culumn: 33,
                         },
-                        kind: Lambda {
-                            arg: LambdaArg {
+                        kind: App {
+                            func: Expr {
                                 id: AstId(
-                                    3,
-                                ),
-                                ident: "x",
-                            },
-                            expr: Expr {
-                                id: AstId(
-                                    5,
+                                    7,
                                 ),
                                 span: Span {
-                                    span: "x",
-                                    file: "ui-tests/id.co",
+                                    span: "(",
+                                    file: "ui-tests/fn-fn.co",
                                     line: 0,
-                                    culumn: 28,
+                                    culumn: 23,
                                 },
-                                kind: Path(
-                                    Path {
+                                kind: Lambda {
+                                    arg: LambdaArg {
                                         id: AstId(
-                                            4,
+                                            3,
                                         ),
                                         ident: "x",
+                                    },
+                                    expr: Expr {
+                                        id: AstId(
+                                            5,
+                                        ),
                                         span: Span {
                                             span: "x",
-                                            file: "ui-tests/id.co",
+                                            file: "ui-tests/fn-fn.co",
                                             line: 0,
-                                            culumn: 28,
+                                            culumn: 30,
                                         },
+                                        kind: Path(
+                                            Path {
+                                                id: AstId(
+                                                    4,
+                                                ),
+                                                ident: "x",
+                                                span: Span {
+                                                    span: "x",
+                                                    file: "ui-tests/fn-fn.co",
+                                                    line: 0,
+                                                    culumn: 30,
+                                                },
+                                            },
+                                        ),
                                     },
+                                },
+                            },
+                            arg: Expr {
+                                id: AstId(
+                                    12,
                                 ),
+                                span: Span {
+                                    span: "(",
+                                    file: "ui-tests/fn-fn.co",
+                                    line: 0,
+                                    culumn: 33,
+                                },
+                                kind: Lambda {
+                                    arg: LambdaArg {
+                                        id: AstId(
+                                            8,
+                                        ),
+                                        ident: "x",
+                                    },
+                                    expr: Expr {
+                                        id: AstId(
+                                            10,
+                                        ),
+                                        span: Span {
+                                            span: "x",
+                                            file: "ui-tests/fn-fn.co",
+                                            line: 0,
+                                            culumn: 40,
+                                        },
+                                        kind: Path(
+                                            Path {
+                                                id: AstId(
+                                                    9,
+                                                ),
+                                                ident: "x",
+                                                span: Span {
+                                                    span: "x",
+                                                    file: "ui-tests/fn-fn.co",
+                                                    line: 0,
+                                                    culumn: 40,
+                                                },
+                                            },
+                                        ),
+                                    },
+                                },
                             },
                         },
                     },

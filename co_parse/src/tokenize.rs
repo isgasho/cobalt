@@ -22,8 +22,12 @@ pub(crate) enum Token<'a> {
     Eq,
     #[token("[")]
     LBracket,
+    #[token("(")]
+    LBrace,
     #[token("]")]
     RBracket,
+    #[token(")")]
+    RBrace,
     #[token("for")]
     For,
     #[regex("[a-zA-Z_']+", |lex| lex.slice())]

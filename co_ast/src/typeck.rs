@@ -198,8 +198,9 @@ impl<'a> TypeckCtxt<'a> {
                 let arg_ty = self.check_expr(arg)?;
 
                 let ret = self.infer_ty();
-                let expected_func = Ty::Fn(Box::new(arg_ty), Box::new(ret));
-                self.eq_tys(e.span, func_ty, expected_func)?
+                let expected_func = Ty::Fn(Box::new(arg_ty), Box::new(ret.clone()));
+                self.eq_tys(e.span, func_ty, expected_func)?;
+                ret
             }
             ExprKind::Path(ref path) => match self.res.get(&path.id).unwrap() {
                 Res::Def(_) => todo!(),

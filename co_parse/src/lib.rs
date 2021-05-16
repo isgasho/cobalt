@@ -114,6 +114,12 @@ fn parse_expr<'a>(lex: &mut Lexer<'a>) -> Result<ast::Expr<'a>, CompileError> {
             let path = parse_path(lex)?;
             (ast::ExprKind::Path(path), sp)
         }
+        (Token::LBrace, sp) => {
+            lex.eat(Token::LBrace).unwrap();
+            let expr = parse_expr(lex)?;
+            lex.eat(Token::RBrace)?;
+            (expr.kind, sp)
+        }
         (_, sp) => CompileError::expected(&"a lambda or a path", sp)?,
     };
 
@@ -124,7 +130,7 @@ fn parse_expr<'a>(lex: &mut Lexer<'a>) -> Result<ast::Expr<'a>, CompileError> {
     };
 
     match lex.peek() {
-        (Token::Lambda | Token::Ident(_), span) => {
+        (Token::Lambda | Token::Ident(_) | Token::LBrace, span) => {
             let arg = Box::new(parse_expr(lex)?);
             Ok(ast::Expr {
                 id: lex.next_id(),
