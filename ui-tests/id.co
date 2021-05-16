@@ -1,1 +1,1 @@
-id :: a -> a = \x -> x;
+for[a] id :: a -> a = \x -> x;

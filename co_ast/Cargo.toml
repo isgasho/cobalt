@@ -8,3 +8,5 @@ edition = "2018"
 
 [dependencies]
 co_diag = { path = "../co_diag" }
+
+tindex = { git = "https://github.com/lcnr/tindex/" }

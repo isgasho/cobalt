@@ -1,41 +1,90 @@
 Module {
     definitions: [
-        Definition {
-            head_span: Span {
-                span: "add",
-                file: "ui-tests/add.co",
-                line: 0,
-                culumn: 0,
-            },
-            ident: "add",
-            ty: Func(
-                Path(
-                    "Int",
-                ),
-                Func(
-                    Path(
-                        "Int",
+        Binder {
+            variables: [
+                BoundVar {
+                    id: AstId(
+                        0,
                     ),
-                    Path(
-                        "Int",
-                    ),
+                    span: Span {
+                        span: "a",
+                        file: "ui-tests/id.co",
+                        line: 0,
+                        culumn: 4,
+                    },
+                    ident: "a",
+                },
+            ],
+            item: Definition {
+                id: AstId(
+                    7,
                 ),
-            ),
-            body: Body {
-                expr: Lambda {
-                    arg: "x",
-                    expr: Lambda {
-                        arg: "y",
-                        expr: App {
-                            func: Path(
-                                "add",
+                head_span: Span {
+                    span: "id",
+                    file: "ui-tests/id.co",
+                    line: 0,
+                    culumn: 7,
+                },
+                ident: "id",
+                ty: Func(
+                    Path(
+                        Path {
+                            id: AstId(
+                                1,
                             ),
-                            arg: App {
-                                func: Path(
-                                    "x",
+                            ident: "a",
+                            span: Span {
+                                span: "a",
+                                file: "ui-tests/id.co",
+                                line: 0,
+                                culumn: 13,
+                            },
+                        },
+                    ),
+                    Path(
+                        Path {
+                            id: AstId(
+                                2,
+                            ),
+                            ident: "a",
+                            span: Span {
+                                span: "a",
+                                file: "ui-tests/id.co",
+                                line: 0,
+                                culumn: 18,
+                            },
+                        },
+                    ),
+                ),
+                body: Body {
+                    expr: Expr {
+                        id: AstId(
+                            6,
+                        ),
+                        kind: Lambda {
+                            arg: LambdaArg {
+                                id: AstId(
+                                    3,
                                 ),
-                                arg: Path(
-                                    "y",
+                                ident: "x",
+                            },
+                            expr: Expr {
+                                id: AstId(
+                                    5,
+                                ),
+                                kind: Path(
+                                    Path {
+                                        id: AstId(
+                                            4,
+                                        ),
+                                        ident: "x",
+                                        span: Span {
+                                            span: "x",
+                                            file: "ui-tests/id.co",
+                                            line: 0,
+                                            culumn: 28,
+                                        },
+                                    },
                                 ),
                             },
                         },

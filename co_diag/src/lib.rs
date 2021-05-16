@@ -31,7 +31,7 @@ impl<R> CompileErrorBuilder<R> {
         let offset = span.line_offset();
         let pos = format!("{}:{}", span.line, offset);
         writeln!(OUTPUT.lock().unwrap(), "  --> {}:{}", span.file, pos).unwrap();
-        writeln!(OUTPUT.lock().unwrap(), "({}): {}", pos, span.slice()).unwrap();
+        writeln!(OUTPUT.lock().unwrap(), "({}): {}", pos, span.line_str()).unwrap();
         for _ in 0..(offset as usize + pos.len() + 4) {
             write!(OUTPUT.lock().unwrap(), " ").unwrap();
         }

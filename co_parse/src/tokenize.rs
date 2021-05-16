@@ -1,4 +1,5 @@
-use co_diag::{Span, CompileError};
+use co_ast as ast;
+use co_diag::{CompileError, Span};
 
 use logos::Logos;
 
@@ -15,8 +16,16 @@ pub(crate) enum Token<'a> {
     Lambda,
     #[token(";")]
     SemiColon,
+    #[token(",")]
+    Comma,
     #[token("=")]
     Eq,
+    #[token("[")]
+    LBracket,
+    #[token("]")]
+    RBracket,
+    #[token("for")]
+    For,
     #[regex("[a-zA-Z_']+", |lex| lex.slice())]
     Ident(&'a str),
     EOF,
@@ -38,40 +47,58 @@ impl<'a> Iterator for Tokenizer<'a> {
     type Item = (Token<'a>, Span<'a>);
 
     fn next(&mut self) -> Option<Self::Item> {
-        Some(self.lex.next().map(|tok| {
-            (
-                tok,
-                Span::new(
-                    self.lex.source(),
-                    self.file,
-                    self.lex.extras,
-                    self.lex.span(),
-                ),
-            )
-        }).unwrap_or_else(|| {
-            let sp = self.lex.span();
-            (Token::EOF, Span::new(
-                self.lex.source(),
-                self.file,
-                self.lex.extras,
-                sp.end..sp.end,
-            ))
-        }))
+        Some(
+            self.lex
+                .next()
+                .map(|tok| {
+                    (
+                        tok,
+                        Span::new(
+                            self.lex.source(),
+                            self.file,
+                            self.lex.extras,
+                            self.lex.span(),
+                        ),
+                    )
+                })
+                .unwrap_or_else(|| {
+                    let sp = self.lex.span();
+                    (
+                        Token::EOF,
+                        Span::new(
+                            self.lex.source(),
+                            self.file,
+                            self.lex.extras,
+                            sp.end..sp.end,
+                        ),
+                    )
+                }),
+        )
     }
 }
 
-pub(crate) struct Lexer<'a>(Peekable<Tokenizer<'a>>);
+pub(crate) struct Lexer<'a>(Peekable<Tokenizer<'a>>, usize);
 
 impl<'a> Lexer<'a> {
     pub(crate) fn new(file: &'a str, src: &'a str) -> Lexer<'a> {
-        Lexer(Tokenizer {
-            file,
-            lex: Token::lexer(src),
-        }.peekable())
+        Lexer(
+            Tokenizer {
+                file,
+                lex: Token::lexer(src),
+            }
+            .peekable(),
+            0,
+        )
     }
 
     pub(crate) fn advance(&mut self) -> (Token<'a>, Span<'a>) {
         self.0.next().unwrap()
+    }
+
+    pub(crate) fn next_id(&mut self) -> ast::AstId {
+        let id = self.1;
+        self.1 += 1;
+        ast::AstId(id)
     }
 
     pub(crate) fn eat(&mut self, expected: Token<'a>) -> Result<(), CompileError> {
@@ -98,6 +125,14 @@ impl<'a> Lexer<'a> {
         match tok {
             Token::Ident(s) => Ok((s, sp)),
             _ => CompileError::expected(&"identifier", sp),
+        }
+    }
+
+    pub(crate) fn opt_ident(&mut self) -> Option<(&'a str, Span<'a>)> {
+        let (tok, _) = self.peek();
+        match tok {
+            Token::Ident(_) => Some(self.expect_ident().unwrap()),
+            _ => None,
         }
     }
 
