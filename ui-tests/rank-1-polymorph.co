@@ -1,0 +1,5 @@
+for[a] id :: a -> a = \x -> x;
+
+for[b] useId :: b -> b = id; 
+
+for[c, d] withFn :: (c -> d) -> (c -> d) = \x -> useId x;

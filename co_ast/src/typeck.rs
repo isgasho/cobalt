@@ -4,7 +4,6 @@ use resolve::Res;
 use std::collections::HashMap;
 use std::fmt;
 use tindex::{TIndex, TVec};
-use visit::{Visitor, Walkable};
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct InferTy(usize);
@@ -31,6 +30,16 @@ pub enum Ty {
     Fn(Box<Ty>, Box<Ty>),
 }
 
+impl Ty {
+    fn has_infer(&self) -> bool {
+        match self {
+            Ty::Infer(_) => true,
+            Ty::Bound(_) => false,
+            Ty::Fn(a, b) => a.has_infer() || b.has_infer(),
+        }
+    }
+}
+
 impl fmt::Display for Ty {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         match self {
@@ -49,7 +58,7 @@ enum Infer {
 }
 
 struct TypeckCtxt<'a> {
-    module: &'a Module<'a>,
+    def_types: &'a HashMap<AstId, Ty>,
     bound_var_map: HashMap<AstId, usize>,
     res: &'a HashMap<AstId, Res>,
     inference_vars: TVec<InferTy, Infer>,
@@ -74,6 +83,26 @@ impl<'a> TypeckCtxt<'a> {
 
     fn infer_ty(&mut self) -> Ty {
         Ty::Infer(self.inference_vars.push(Infer::Unknown))
+    }
+
+    fn inner_subst_with_infer(&mut self, t: Ty, mapping: &mut HashMap<usize, Ty>) -> Ty {
+        match t {
+            Ty::Infer(_) => unreachable!(),
+            Ty::Bound(arg) => mapping
+                .entry(arg)
+                .or_insert_with(|| self.infer_ty())
+                .clone(),
+            Ty::Fn(arg, ret) => {
+                let arg = Box::new(self.inner_subst_with_infer(*arg, mapping));
+                let ret = Box::new(self.inner_subst_with_infer(*ret, mapping));
+                Ty::Fn(arg, ret)
+            }
+        }
+    }
+
+    fn subst_with_infer(&mut self, t: Ty) -> Ty {
+        let mut mapping = HashMap::new();
+        self.inner_subst_with_infer(t, &mut mapping)
     }
 
     fn deep_resolve(&mut self, t: Ty) -> Ty {
@@ -173,10 +202,10 @@ impl<'a> TypeckCtxt<'a> {
     }
 
     fn check_def(&mut self, def: &Definition<'a>) -> Result<(), CompileError> {
-        let def_ty = self.ast_ty_to_ty(&def.ty)?;
+        let def_ty = self.def_types.get(&def.id).unwrap();
         self.types.insert(def.id, def_ty.clone());
         let body_ty = self.check_body(&def.body)?;
-        self.eq_tys(def.head_span, def_ty, body_ty)?;
+        self.eq_tys(def.head_span, def_ty.clone(), body_ty)?;
         Ok(())
     }
 
@@ -203,7 +232,10 @@ impl<'a> TypeckCtxt<'a> {
                 ret
             }
             ExprKind::Path(ref path) => match self.res.get(&path.id).unwrap() {
-                Res::Def(_) => todo!(),
+                Res::Def(def) => {
+                    let def_ty = self.def_types.get(def).unwrap().clone();
+                    self.subst_with_infer(def_ty)
+                }
                 Res::BoundVar(_) => unreachable!("ty as expr"),
                 Res::LambdaArg(arg) => self.types.get(arg).unwrap().clone(),
             },
@@ -214,11 +246,11 @@ impl<'a> TypeckCtxt<'a> {
     }
 }
 
-pub fn typeck<'a>(
+fn compute_def_types<'a>(
     module: &Module<'a>,
     res: &HashMap<AstId, Res>,
 ) -> Result<HashMap<AstId, Ty>, CompileError> {
-    let mut types = HashMap::new();
+    let mut def_types = HashMap::new();
     for def in &module.definitions {
         let bound_var_map = def
             .variables
@@ -228,7 +260,37 @@ pub fn typeck<'a>(
             .collect();
 
         let mut ctx = TypeckCtxt {
-            module,
+            def_types: &HashMap::new(),
+            res,
+            bound_var_map,
+            inference_vars: TVec::new(),
+            types: HashMap::new(),
+        };
+
+        let def_ty = ctx.ast_ty_to_ty(&def.item.ty)?;
+        assert!(!def_ty.has_infer());
+        def_types.insert(def.item.id, def_ty);
+    }
+    Ok(def_types)
+}
+
+pub fn typeck<'a>(
+    module: &Module<'a>,
+    res: &HashMap<AstId, Res>,
+) -> Result<HashMap<AstId, Ty>, CompileError> {
+    let mut types = HashMap::new();
+
+    let def_types = &compute_def_types(module, res)?;
+    for def in &module.definitions {
+        let bound_var_map = def
+            .variables
+            .iter()
+            .zip(0..)
+            .map(|(var, idx)| (var.id, idx))
+            .collect();
+
+        let mut ctx = TypeckCtxt {
+            def_types,
             res,
             bound_var_map,
             inference_vars: TVec::new(),

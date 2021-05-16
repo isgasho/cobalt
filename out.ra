@@ -8,227 +8,365 @@ Module {
                     ),
                     span: Span {
                         span: "a",
-                        file: "ui-tests/ty-brace.co",
+                        file: "ui-tests/rank-1-polymorph.co",
                         line: 0,
                         culumn: 4,
                     },
                     ident: "a",
                 },
+            ],
+            item: Definition {
+                id: AstId(
+                    7,
+                ),
+                head_span: Span {
+                    span: "id",
+                    file: "ui-tests/rank-1-polymorph.co",
+                    line: 0,
+                    culumn: 7,
+                },
+                ident: "id",
+                ty: Func(
+                    Path(
+                        Path {
+                            id: AstId(
+                                1,
+                            ),
+                            ident: "a",
+                            span: Span {
+                                span: "a",
+                                file: "ui-tests/rank-1-polymorph.co",
+                                line: 0,
+                                culumn: 13,
+                            },
+                        },
+                    ),
+                    Path(
+                        Path {
+                            id: AstId(
+                                2,
+                            ),
+                            ident: "a",
+                            span: Span {
+                                span: "a",
+                                file: "ui-tests/rank-1-polymorph.co",
+                                line: 0,
+                                culumn: 18,
+                            },
+                        },
+                    ),
+                ),
+                body: Body {
+                    expr: Expr {
+                        id: AstId(
+                            6,
+                        ),
+                        span: Span {
+                            span: "\\",
+                            file: "ui-tests/rank-1-polymorph.co",
+                            line: 0,
+                            culumn: 22,
+                        },
+                        kind: Lambda {
+                            arg: LambdaArg {
+                                id: AstId(
+                                    3,
+                                ),
+                                ident: "x",
+                            },
+                            expr: Expr {
+                                id: AstId(
+                                    5,
+                                ),
+                                span: Span {
+                                    span: "x",
+                                    file: "ui-tests/rank-1-polymorph.co",
+                                    line: 0,
+                                    culumn: 28,
+                                },
+                                kind: Path(
+                                    Path {
+                                        id: AstId(
+                                            4,
+                                        ),
+                                        ident: "x",
+                                        span: Span {
+                                            span: "x",
+                                            file: "ui-tests/rank-1-polymorph.co",
+                                            line: 0,
+                                            culumn: 28,
+                                        },
+                                    },
+                                ),
+                            },
+                        },
+                    },
+                },
+            },
+        },
+        Binder {
+            variables: [
                 BoundVar {
                     id: AstId(
-                        1,
+                        8,
                     ),
                     span: Span {
                         span: "b",
-                        file: "ui-tests/ty-brace.co",
+                        file: "ui-tests/rank-1-polymorph.co",
                         line: 0,
-                        culumn: 7,
+                        culumn: 4,
                     },
                     ident: "b",
                 },
             ],
             item: Definition {
                 id: AstId(
-                    17,
+                    13,
                 ),
                 head_span: Span {
-                    span: "tyBrace",
-                    file: "ui-tests/ty-brace.co",
+                    span: "useId",
+                    file: "ui-tests/rank-1-polymorph.co",
+                    line: 0,
+                    culumn: 7,
+                },
+                ident: "useId",
+                ty: Func(
+                    Path(
+                        Path {
+                            id: AstId(
+                                9,
+                            ),
+                            ident: "b",
+                            span: Span {
+                                span: "b",
+                                file: "ui-tests/rank-1-polymorph.co",
+                                line: 0,
+                                culumn: 16,
+                            },
+                        },
+                    ),
+                    Path(
+                        Path {
+                            id: AstId(
+                                10,
+                            ),
+                            ident: "b",
+                            span: Span {
+                                span: "b",
+                                file: "ui-tests/rank-1-polymorph.co",
+                                line: 0,
+                                culumn: 21,
+                            },
+                        },
+                    ),
+                ),
+                body: Body {
+                    expr: Expr {
+                        id: AstId(
+                            12,
+                        ),
+                        span: Span {
+                            span: "id",
+                            file: "ui-tests/rank-1-polymorph.co",
+                            line: 0,
+                            culumn: 25,
+                        },
+                        kind: Path(
+                            Path {
+                                id: AstId(
+                                    11,
+                                ),
+                                ident: "id",
+                                span: Span {
+                                    span: "id",
+                                    file: "ui-tests/rank-1-polymorph.co",
+                                    line: 0,
+                                    culumn: 25,
+                                },
+                            },
+                        ),
+                    },
+                },
+            },
+        },
+        Binder {
+            variables: [
+                BoundVar {
+                    id: AstId(
+                        14,
+                    ),
+                    span: Span {
+                        span: "c",
+                        file: "ui-tests/rank-1-polymorph.co",
+                        line: 0,
+                        culumn: 4,
+                    },
+                    ident: "c",
+                },
+                BoundVar {
+                    id: AstId(
+                        15,
+                    ),
+                    span: Span {
+                        span: "d",
+                        file: "ui-tests/rank-1-polymorph.co",
+                        line: 0,
+                        culumn: 7,
+                    },
+                    ident: "d",
+                },
+            ],
+            item: Definition {
+                id: AstId(
+                    27,
+                ),
+                head_span: Span {
+                    span: "withFn",
+                    file: "ui-tests/rank-1-polymorph.co",
                     line: 0,
                     culumn: 10,
                 },
-                ident: "tyBrace",
+                ident: "withFn",
                 ty: Func(
                     Func(
                         Path(
                             Path {
                                 id: AstId(
-                                    2,
+                                    16,
                                 ),
-                                ident: "a",
+                                ident: "c",
                                 span: Span {
-                                    span: "a",
-                                    file: "ui-tests/ty-brace.co",
+                                    span: "c",
+                                    file: "ui-tests/rank-1-polymorph.co",
                                     line: 0,
-                                    culumn: 22,
+                                    culumn: 21,
                                 },
                             },
                         ),
-                        Func(
-                            Path(
-                                Path {
-                                    id: AstId(
-                                        3,
-                                    ),
-                                    ident: "b",
-                                    span: Span {
-                                        span: "b",
-                                        file: "ui-tests/ty-brace.co",
-                                        line: 0,
-                                        culumn: 27,
-                                    },
+                        Path(
+                            Path {
+                                id: AstId(
+                                    17,
+                                ),
+                                ident: "d",
+                                span: Span {
+                                    span: "d",
+                                    file: "ui-tests/rank-1-polymorph.co",
+                                    line: 0,
+                                    culumn: 26,
                                 },
-                            ),
-                            Path(
-                                Path {
-                                    id: AstId(
-                                        4,
-                                    ),
-                                    ident: "a",
-                                    span: Span {
-                                        span: "a",
-                                        file: "ui-tests/ty-brace.co",
-                                        line: 0,
-                                        culumn: 32,
-                                    },
-                                },
-                            ),
+                            },
                         ),
                     ),
                     Func(
                         Path(
                             Path {
                                 id: AstId(
-                                    5,
+                                    18,
                                 ),
-                                ident: "a",
+                                ident: "c",
                                 span: Span {
-                                    span: "a",
-                                    file: "ui-tests/ty-brace.co",
+                                    span: "c",
+                                    file: "ui-tests/rank-1-polymorph.co",
+                                    line: 0,
+                                    culumn: 33,
+                                },
+                            },
+                        ),
+                        Path(
+                            Path {
+                                id: AstId(
+                                    19,
+                                ),
+                                ident: "d",
+                                span: Span {
+                                    span: "d",
+                                    file: "ui-tests/rank-1-polymorph.co",
                                     line: 0,
                                     culumn: 38,
                                 },
                             },
-                        ),
-                        Func(
-                            Path(
-                                Path {
-                                    id: AstId(
-                                        6,
-                                    ),
-                                    ident: "b",
-                                    span: Span {
-                                        span: "b",
-                                        file: "ui-tests/ty-brace.co",
-                                        line: 0,
-                                        culumn: 43,
-                                    },
-                                },
-                            ),
-                            Path(
-                                Path {
-                                    id: AstId(
-                                        7,
-                                    ),
-                                    ident: "a",
-                                    span: Span {
-                                        span: "a",
-                                        file: "ui-tests/ty-brace.co",
-                                        line: 0,
-                                        culumn: 48,
-                                    },
-                                },
-                            ),
                         ),
                     ),
                 ),
                 body: Body {
                     expr: Expr {
                         id: AstId(
-                            16,
+                            26,
                         ),
                         span: Span {
                             span: "\\",
-                            file: "ui-tests/ty-brace.co",
+                            file: "ui-tests/rank-1-polymorph.co",
                             line: 0,
-                            culumn: 4,
+                            culumn: 43,
                         },
                         kind: Lambda {
                             arg: LambdaArg {
                                 id: AstId(
-                                    8,
+                                    20,
                                 ),
-                                ident: "aba",
+                                ident: "x",
                             },
                             expr: Expr {
                                 id: AstId(
-                                    15,
+                                    25,
                                 ),
                                 span: Span {
-                                    span: "\\",
-                                    file: "ui-tests/ty-brace.co",
+                                    span: "x",
+                                    file: "ui-tests/rank-1-polymorph.co",
                                     line: 0,
-                                    culumn: 12,
+                                    culumn: 55,
                                 },
-                                kind: Lambda {
-                                    arg: LambdaArg {
+                                kind: App {
+                                    func: Expr {
                                         id: AstId(
-                                            9,
-                                        ),
-                                        ident: "a",
-                                    },
-                                    expr: Expr {
-                                        id: AstId(
-                                            14,
+                                            22,
                                         ),
                                         span: Span {
-                                            span: "a",
-                                            file: "ui-tests/ty-brace.co",
+                                            span: "useId",
+                                            file: "ui-tests/rank-1-polymorph.co",
                                             line: 0,
-                                            culumn: 22,
+                                            culumn: 49,
                                         },
-                                        kind: App {
-                                            func: Expr {
+                                        kind: Path(
+                                            Path {
                                                 id: AstId(
-                                                    11,
+                                                    21,
                                                 ),
+                                                ident: "useId",
                                                 span: Span {
-                                                    span: "aba",
-                                                    file: "ui-tests/ty-brace.co",
+                                                    span: "useId",
+                                                    file: "ui-tests/rank-1-polymorph.co",
                                                     line: 0,
-                                                    culumn: 18,
+                                                    culumn: 49,
                                                 },
-                                                kind: Path(
-                                                    Path {
-                                                        id: AstId(
-                                                            10,
-                                                        ),
-                                                        ident: "aba",
-                                                        span: Span {
-                                                            span: "aba",
-                                                            file: "ui-tests/ty-brace.co",
-                                                            line: 0,
-                                                            culumn: 18,
-                                                        },
-                                                    },
-                                                ),
                                             },
-                                            arg: Expr {
-                                                id: AstId(
-                                                    13,
-                                                ),
-                                                span: Span {
-                                                    span: "a",
-                                                    file: "ui-tests/ty-brace.co",
-                                                    line: 0,
-                                                    culumn: 22,
-                                                },
-                                                kind: Path(
-                                                    Path {
-                                                        id: AstId(
-                                                            12,
-                                                        ),
-                                                        ident: "a",
-                                                        span: Span {
-                                                            span: "a",
-                                                            file: "ui-tests/ty-brace.co",
-                                                            line: 0,
-                                                            culumn: 22,
-                                                        },
-                                                    },
-                                                ),
-                                            },
+                                        ),
+                                    },
+                                    arg: Expr {
+                                        id: AstId(
+                                            24,
+                                        ),
+                                        span: Span {
+                                            span: "x",
+                                            file: "ui-tests/rank-1-polymorph.co",
+                                            line: 0,
+                                            culumn: 55,
                                         },
+                                        kind: Path(
+                                            Path {
+                                                id: AstId(
+                                                    23,
+                                                ),
+                                                ident: "x",
+                                                span: Span {
+                                                    span: "x",
+                                                    file: "ui-tests/rank-1-polymorph.co",
+                                                    line: 0,
+                                                    culumn: 55,
+                                                },
+                                            },
+                                        ),
                                     },
                                 },
                             },
