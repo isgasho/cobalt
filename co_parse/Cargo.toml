@@ -1,0 +1,13 @@
+[package]
+name = "co_parse"
+version = "0.1.0"
+authors = ["lcnr <rust@lcnr.de>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+co_ast = { path = "../co_ast" }
+co_diag = { path = "../co_diag" }
+
+logos = "0.12"

@@ -1,0 +1,20 @@
+[package]
+name = "cobalt"
+version = "0.1.0"
+authors = ["lcnr <rust@lcnr.de>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[workspace]
+
+members = [
+    "co_ast",
+    "co_parse",
+    "co_diag",
+]
+
+[dependencies]
+co_ast = { path = "co_ast" }
+co_diag = { path = "co_diag" }
+co_parse = { path = "co_parse" }

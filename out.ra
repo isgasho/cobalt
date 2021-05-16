@@ -1,0 +1,47 @@
+Module {
+    definitions: [
+        Definition {
+            head_span: Span {
+                span: "add",
+                file: "ui-tests/add.co",
+                line: 0,
+                culumn: 0,
+            },
+            ident: "add",
+            ty: Func(
+                Path(
+                    "Int",
+                ),
+                Func(
+                    Path(
+                        "Int",
+                    ),
+                    Path(
+                        "Int",
+                    ),
+                ),
+            ),
+            body: Body {
+                expr: Lambda {
+                    arg: "x",
+                    expr: Lambda {
+                        arg: "y",
+                        expr: App {
+                            func: Path(
+                                "add",
+                            ),
+                            arg: App {
+                                func: Path(
+                                    "x",
+                                ),
+                                arg: Path(
+                                    "y",
+                                ),
+                            },
+                        },
+                    },
+                },
+            },
+        },
+    ],
+}
