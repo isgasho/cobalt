@@ -1,0 +1,3 @@
+for[a, b, c] swap :: (a -> b -> c) -> b -> a -> c = \f -> \x -> \y -> f y x;
+
+for[a, b, c] seq :: (a -> b) -> (b -> c) -> (a -> c) = \ab -> \bc -> \x -> bc (ab x);

@@ -96,12 +96,15 @@ fn parse_ty<'a>(lex: &mut Lexer<'a>, with_arrow: bool) -> Result<ast::Type<'a>, 
 }
 
 fn parse_body<'a>(lex: &mut Lexer<'a>) -> Result<ast::Body<'a>, CompileError> {
-    let expr = parse_expr(lex)?;
+    let expr = parse_expr(lex, None)?;
 
     Ok(ast::Body { expr })
 }
 
-fn parse_expr<'a>(lex: &mut Lexer<'a>) -> Result<ast::Expr<'a>, CompileError> {
+fn parse_expr<'a>(
+    lex: &mut Lexer<'a>,
+    app: Option<ast::Expr<'a>>,
+) -> Result<ast::Expr<'a>, CompileError> {
     let (expr_kind, span) = match lex.peek() {
         (Token::Lambda, sp) => {
             lex.eat(Token::Lambda).unwrap();
@@ -111,7 +114,7 @@ fn parse_expr<'a>(lex: &mut Lexer<'a>) -> Result<ast::Expr<'a>, CompileError> {
                 ident,
             };
             lex.eat(Token::Arrow)?;
-            let expr = Box::new(parse_expr(lex)?);
+            let expr = Box::new(parse_expr(lex, None)?);
             (ast::ExprKind::Lambda { arg, expr }, sp)
         }
         (Token::Ident(_), sp) => {
@@ -120,7 +123,7 @@ fn parse_expr<'a>(lex: &mut Lexer<'a>) -> Result<ast::Expr<'a>, CompileError> {
         }
         (Token::LBrace, sp) => {
             lex.eat(Token::LBrace).unwrap();
-            let expr = parse_expr(lex)?;
+            let expr = parse_expr(lex, None)?;
             lex.eat(Token::RBrace)?;
             (expr.kind, sp)
         }
@@ -133,18 +136,21 @@ fn parse_expr<'a>(lex: &mut Lexer<'a>) -> Result<ast::Expr<'a>, CompileError> {
         kind: expr_kind,
     };
 
-    match lex.peek() {
-        (Token::Lambda | Token::Ident(_) | Token::LBrace, span) => {
-            let arg = Box::new(parse_expr(lex)?);
-            Ok(ast::Expr {
-                id: lex.next_id(),
-                span,
-                kind: ast::ExprKind::App {
-                    func: Box::new(expr),
-                    arg,
-                },
-            })
+    let expr = if let Some(app) = app {
+        ast::Expr {
+            id: lex.next_id(),
+            span,
+            kind: ast::ExprKind::App {
+                func: Box::new(app),
+                arg: Box::new(expr),
+            },
         }
+    } else {
+        expr
+    };
+
+    match lex.peek() {
+        (Token::Lambda | Token::Ident(_) | Token::LBrace, span) => parse_expr(lex, Some(expr)),
         _ => Ok(expr),
     }
 }
