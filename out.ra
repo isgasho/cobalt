@@ -8,151 +8,227 @@ Module {
                     ),
                     span: Span {
                         span: "a",
-                        file: "ui-tests/fn-fn.co",
+                        file: "ui-tests/ty-brace.co",
                         line: 0,
                         culumn: 4,
                     },
                     ident: "a",
                 },
+                BoundVar {
+                    id: AstId(
+                        1,
+                    ),
+                    span: Span {
+                        span: "b",
+                        file: "ui-tests/ty-brace.co",
+                        line: 0,
+                        culumn: 7,
+                    },
+                    ident: "b",
+                },
             ],
             item: Definition {
                 id: AstId(
-                    14,
+                    17,
                 ),
                 head_span: Span {
-                    span: "foo",
-                    file: "ui-tests/fn-fn.co",
+                    span: "tyBrace",
+                    file: "ui-tests/ty-brace.co",
                     line: 0,
-                    culumn: 7,
+                    culumn: 10,
                 },
-                ident: "foo",
+                ident: "tyBrace",
                 ty: Func(
-                    Path(
-                        Path {
-                            id: AstId(
-                                1,
-                            ),
-                            ident: "a",
-                            span: Span {
-                                span: "a",
-                                file: "ui-tests/fn-fn.co",
-                                line: 0,
-                                culumn: 14,
+                    Func(
+                        Path(
+                            Path {
+                                id: AstId(
+                                    2,
+                                ),
+                                ident: "a",
+                                span: Span {
+                                    span: "a",
+                                    file: "ui-tests/ty-brace.co",
+                                    line: 0,
+                                    culumn: 22,
+                                },
                             },
-                        },
+                        ),
+                        Func(
+                            Path(
+                                Path {
+                                    id: AstId(
+                                        3,
+                                    ),
+                                    ident: "b",
+                                    span: Span {
+                                        span: "b",
+                                        file: "ui-tests/ty-brace.co",
+                                        line: 0,
+                                        culumn: 27,
+                                    },
+                                },
+                            ),
+                            Path(
+                                Path {
+                                    id: AstId(
+                                        4,
+                                    ),
+                                    ident: "a",
+                                    span: Span {
+                                        span: "a",
+                                        file: "ui-tests/ty-brace.co",
+                                        line: 0,
+                                        culumn: 32,
+                                    },
+                                },
+                            ),
+                        ),
                     ),
-                    Path(
-                        Path {
-                            id: AstId(
-                                2,
-                            ),
-                            ident: "a",
-                            span: Span {
-                                span: "a",
-                                file: "ui-tests/fn-fn.co",
-                                line: 0,
-                                culumn: 19,
+                    Func(
+                        Path(
+                            Path {
+                                id: AstId(
+                                    5,
+                                ),
+                                ident: "a",
+                                span: Span {
+                                    span: "a",
+                                    file: "ui-tests/ty-brace.co",
+                                    line: 0,
+                                    culumn: 38,
+                                },
                             },
-                        },
+                        ),
+                        Func(
+                            Path(
+                                Path {
+                                    id: AstId(
+                                        6,
+                                    ),
+                                    ident: "b",
+                                    span: Span {
+                                        span: "b",
+                                        file: "ui-tests/ty-brace.co",
+                                        line: 0,
+                                        culumn: 43,
+                                    },
+                                },
+                            ),
+                            Path(
+                                Path {
+                                    id: AstId(
+                                        7,
+                                    ),
+                                    ident: "a",
+                                    span: Span {
+                                        span: "a",
+                                        file: "ui-tests/ty-brace.co",
+                                        line: 0,
+                                        culumn: 48,
+                                    },
+                                },
+                            ),
+                        ),
                     ),
                 ),
                 body: Body {
                     expr: Expr {
                         id: AstId(
-                            13,
+                            16,
                         ),
                         span: Span {
-                            span: "(",
-                            file: "ui-tests/fn-fn.co",
+                            span: "\\",
+                            file: "ui-tests/ty-brace.co",
                             line: 0,
-                            culumn: 33,
+                            culumn: 4,
                         },
-                        kind: App {
-                            func: Expr {
+                        kind: Lambda {
+                            arg: LambdaArg {
                                 id: AstId(
-                                    7,
+                                    8,
                                 ),
-                                span: Span {
-                                    span: "(",
-                                    file: "ui-tests/fn-fn.co",
-                                    line: 0,
-                                    culumn: 23,
-                                },
-                                kind: Lambda {
-                                    arg: LambdaArg {
-                                        id: AstId(
-                                            3,
-                                        ),
-                                        ident: "x",
-                                    },
-                                    expr: Expr {
-                                        id: AstId(
-                                            5,
-                                        ),
-                                        span: Span {
-                                            span: "x",
-                                            file: "ui-tests/fn-fn.co",
-                                            line: 0,
-                                            culumn: 30,
-                                        },
-                                        kind: Path(
-                                            Path {
-                                                id: AstId(
-                                                    4,
-                                                ),
-                                                ident: "x",
-                                                span: Span {
-                                                    span: "x",
-                                                    file: "ui-tests/fn-fn.co",
-                                                    line: 0,
-                                                    culumn: 30,
-                                                },
-                                            },
-                                        ),
-                                    },
-                                },
+                                ident: "aba",
                             },
-                            arg: Expr {
+                            expr: Expr {
                                 id: AstId(
-                                    12,
+                                    15,
                                 ),
                                 span: Span {
-                                    span: "(",
-                                    file: "ui-tests/fn-fn.co",
+                                    span: "\\",
+                                    file: "ui-tests/ty-brace.co",
                                     line: 0,
-                                    culumn: 33,
+                                    culumn: 12,
                                 },
                                 kind: Lambda {
                                     arg: LambdaArg {
                                         id: AstId(
-                                            8,
+                                            9,
                                         ),
-                                        ident: "x",
+                                        ident: "a",
                                     },
                                     expr: Expr {
                                         id: AstId(
-                                            10,
+                                            14,
                                         ),
                                         span: Span {
-                                            span: "x",
-                                            file: "ui-tests/fn-fn.co",
+                                            span: "a",
+                                            file: "ui-tests/ty-brace.co",
                                             line: 0,
-                                            culumn: 40,
+                                            culumn: 22,
                                         },
-                                        kind: Path(
-                                            Path {
+                                        kind: App {
+                                            func: Expr {
                                                 id: AstId(
-                                                    9,
+                                                    11,
                                                 ),
-                                                ident: "x",
                                                 span: Span {
-                                                    span: "x",
-                                                    file: "ui-tests/fn-fn.co",
+                                                    span: "aba",
+                                                    file: "ui-tests/ty-brace.co",
                                                     line: 0,
-                                                    culumn: 40,
+                                                    culumn: 18,
                                                 },
+                                                kind: Path(
+                                                    Path {
+                                                        id: AstId(
+                                                            10,
+                                                        ),
+                                                        ident: "aba",
+                                                        span: Span {
+                                                            span: "aba",
+                                                            file: "ui-tests/ty-brace.co",
+                                                            line: 0,
+                                                            culumn: 18,
+                                                        },
+                                                    },
+                                                ),
                                             },
-                                        ),
+                                            arg: Expr {
+                                                id: AstId(
+                                                    13,
+                                                ),
+                                                span: Span {
+                                                    span: "a",
+                                                    file: "ui-tests/ty-brace.co",
+                                                    line: 0,
+                                                    culumn: 22,
+                                                },
+                                                kind: Path(
+                                                    Path {
+                                                        id: AstId(
+                                                            12,
+                                                        ),
+                                                        ident: "a",
+                                                        span: Span {
+                                                            span: "a",
+                                                            file: "ui-tests/ty-brace.co",
+                                                            line: 0,
+                                                            culumn: 22,
+                                                        },
+                                                    },
+                                                ),
+                                            },
+                                        },
                                     },
                                 },
                             },

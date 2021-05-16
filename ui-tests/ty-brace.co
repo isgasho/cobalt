@@ -1,0 +1,2 @@
+for[a, b] tyBrace :: (a -> b -> a) -> a -> b -> a =
+    \aba -> \a -> aba a;

@@ -86,6 +86,10 @@ fn parse_ty<'a>(lex: &mut Lexer<'a>, with_arrow: bool) -> Result<ast::Type<'a>, 
         } else {
             Ok(arg)
         }
+    } else if lex.try_eat(Token::LBrace) {
+        let ty = parse_ty(lex, true)?;
+        lex.eat(Token::RBrace)?;
+        Ok(ty)
     } else {
         Ok(ast::Type::Path(parse_path(lex)?))
     }
