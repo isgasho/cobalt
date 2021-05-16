@@ -120,7 +120,11 @@ impl<'a> Walkable<'a> for Expr<'a> {
     }
 
     fn walk_with(&self, v: &mut impl Visitor<'a>) -> Result<(), CompileError> {
-        let &Expr { id: _, ref kind } = self;
+        let &Expr {
+            id: _,
+            span: _,
+            ref kind,
+        } = self;
 
         match kind {
             ExprKind::Lambda { arg: _, expr } => expr.visit_with(v),

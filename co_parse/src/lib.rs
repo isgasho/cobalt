@@ -98,8 +98,8 @@ fn parse_body<'a>(lex: &mut Lexer<'a>) -> Result<ast::Body<'a>, CompileError> {
 }
 
 fn parse_expr<'a>(lex: &mut Lexer<'a>) -> Result<ast::Expr<'a>, CompileError> {
-    let expr_kind = match lex.peek() {
-        (Token::Lambda, _sp) => {
+    let (expr_kind, span) = match lex.peek() {
+        (Token::Lambda, sp) => {
             lex.eat(Token::Lambda).unwrap();
             let (ident, _span) = lex.expect_ident()?;
             let arg = ast::LambdaArg {
@@ -108,25 +108,27 @@ fn parse_expr<'a>(lex: &mut Lexer<'a>) -> Result<ast::Expr<'a>, CompileError> {
             };
             lex.eat(Token::Arrow)?;
             let expr = Box::new(parse_expr(lex)?);
-            ast::ExprKind::Lambda { arg, expr }
+            (ast::ExprKind::Lambda { arg, expr }, sp)
         }
-        (Token::Ident(_), _) => {
+        (Token::Ident(_), sp) => {
             let path = parse_path(lex)?;
-            ast::ExprKind::Path(path)
+            (ast::ExprKind::Path(path), sp)
         }
         (_, sp) => CompileError::expected(&"a lambda or a path", sp)?,
     };
 
     let expr = ast::Expr {
         id: lex.next_id(),
+        span,
         kind: expr_kind,
     };
 
     match lex.peek() {
-        (Token::Lambda | Token::Ident(_), _) => {
+        (Token::Lambda | Token::Ident(_), span) => {
             let arg = Box::new(parse_expr(lex)?);
             Ok(ast::Expr {
                 id: lex.next_id(),
+                span,
                 kind: ast::ExprKind::App {
                     func: Box::new(expr),
                     arg,

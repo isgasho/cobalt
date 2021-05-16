@@ -54,6 +54,7 @@ pub struct LambdaArg<'a> {
 #[derive(Debug)]
 pub struct Expr<'a> {
     pub id: AstId,
+    pub span: Span<'a>,
     pub kind: ExprKind<'a>,
 }
 
